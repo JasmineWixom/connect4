@@ -2,6 +2,7 @@ let currentPlayer = "rball";
 
 const columns = document.querySelectorAll(".column");
 
+
 for (let i = 0; i < columns.length; i++) {
     const column = columns[i];
     column.onclick = function() {
@@ -16,6 +17,11 @@ for (let i = 0; i < columns.length; i++) {
             currentPlayer = "bball";
         } else {
             currentPlayer = "rball";
+        }
+        checkwinner();
+
+        if(winningcombinations(currentPlayer)) {
+            alert("Player" + currentPlayer + "Wins");
         }
     }
 }
@@ -91,3 +97,23 @@ const winningcombinations = [
     [31, 25, 19, 13],
     [38, 32, 26, 20],
 ]
+
+function checkwinner() {
+    for(i = 0; i < winningcombinations.length; i++); {
+        matches = 0
+        for(h = 0; h < winningcombinations.length; h++) {
+            if(currentPlayer.includes(winningcombinations[i][h])) {
+                matches++;
+            }
+            else {
+                break;
+            }
+            if (currentPlayer === 4) {
+                return true;
+            }
+        }
+    }
+    if (currentPlayer != 4) {
+        return false;
+    }
+}
