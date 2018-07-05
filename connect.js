@@ -1,7 +1,20 @@
-let currentPlayer = "rball";
+let currentPlayer = "Red";
 
 const columns = document.querySelectorAll(".column");
 
+const board = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+]
+const players= {
+    Red: [],
+    Black: [],
+}
 
 for (let i = 0; i < columns.length; i++) {
     const column = columns[i];
@@ -9,22 +22,28 @@ for (let i = 0; i < columns.length; i++) {
         if (column.childElementCount === 6) {
             return;
         }
+        
         const checker = document.createElement("div");
         checker.classList.add("checker", currentPlayer);
         column.appendChild(checker);
-
-        if (currentPlayer === "rball") {
-            currentPlayer = "bball";
-        } else {
-            currentPlayer = "rball";
+        players[currentPlayer].push(i+(7*board[i].length))
+        
+        board[i].push(i+(7*board[i].length));
+        const winnerfound = checkwinner();
+        
+        if(winnerfound) {
+            alert("Player " + currentPlayer + " Wins!")
+            //resetGame();
         }
-        checkwinner();
-
-        if(winningcombinations(currentPlayer)) {
-            alert("Player" + currentPlayer + "Wins");
+        if (currentPlayer === "Red") {
+            currentPlayer = "Black";
+        } else {
+            currentPlayer = "Red";
         }
     }
 }
+
+
 
 const winningcombinations = [
     [0, 1, 2, 3],
@@ -99,21 +118,32 @@ const winningcombinations = [
 ]
 
 function checkwinner() {
-    for(i = 0; i < winningcombinations.length; i++); {
-        matches = 0
-        for(h = 0; h < winningcombinations.length; h++) {
-            if(currentPlayer.includes(winningcombinations[i][h])) {
+    let matches;
+    for(let i = 0; i < winningcombinations.length; i++) {
+       matches = 0
+       const combination = winningcombinations[i];
+        for(let h = 0; h < combination.length; h++) {
+            const comb = combination[h];
+            if (players[currentPlayer].includes(comb)) {
                 matches++;
             }
             else {
                 break;
             }
-            if (currentPlayer === 4) {
+            if (matches === 4) {
                 return true;
             }
         }
     }
-    if (currentPlayer != 4) {
+    if (matches != 4) {
         return false;
     }
 }
+
+//function resetGame() {
+  //  players = new Array();
+ //   players = new Array();
+  //  for(var i = 0; i < columns.length; i++) {
+  //    columns[i].innerHTML = ""
+ //   }
+//}
