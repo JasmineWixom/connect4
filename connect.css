@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    height: 415px;
+    width: 520px;
+    
+}
+
+.column {
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-grow: 1; 
+    align-items: center;
+    flex-basis: 75px;
+}
+
+.checker {
+    border-radius: 50%;
+    height: 68px;
+    width: 68px;
+    display: flex;
+    align-self: flex;
+}
+
+.bball {
+    background-color: black;
+}
+.rball {
+    background-color: red;
+}
+
